@@ -29,8 +29,8 @@ Smails_Text = ['^ↀᴥↀ^', '(ಠ_ಠ)', 'ಠoಠ', '( ͡°෴ ͡°)', #0-3
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.reply_to(message, "Добрый день, я бот, переводящий обычный смайл в текстовый (¬‿¬). Просто отправьте мне его.")
-    bot.reply_to(message, "Чтобы узнать больше, используйте команду /help")
+      bot.reply_to(message, "Добрый день, я бот, переводящий обычный смайл в текстовый (¬‿¬). Просто отправьте мне его.")
+      bot.reply_to(message, "Чтобы узнать больше, используйте команду /help")
 
 @bot.message_handler(commands=['help'])
 def send_welcome(message):
@@ -41,6 +41,20 @@ def send_welcome(message):
 def send_welcome(message):
     s = random.randint(0,49)
     bot.reply_to(message, Smails_Text[s])
+
+@bot.message_handler(commands=['find'])
+def send_welcome(message):
+    message = list(message)
+    str1=''
+    for i in range (0,49):
+      z= Smails[i].find(message,[0],[len(Smails[i])])
+      if z!=-1:
+          str1= str1+' '+ Text_Smails[i] + ' '
+    if str1!='':
+      bot.reply_to(message, str1)
+    else:
+      bot.reply_to(message, 'Простите, запрос не найден')
+
 
 
 
@@ -146,7 +160,9 @@ def a(message):
         if emoji.demojize(message.text) == Smails[48]:
           bot.reply_to(message, Smails_Text[48])
         if emoji.demojize(message.text) == Smails[49]:
-          bot.reply_to(message, Smails_Text[48])
+          bot.reply_to(message, Smails_Text[49])
+        if emoji.demojize(message.text) in Smails:
+          k=0
         else:
           bot.reply_to(message, 'Простите, но такого смайла пока нет в базе данных. Дождитесь, пока разработчики его добавят (￣﹃￣)')
     else:
